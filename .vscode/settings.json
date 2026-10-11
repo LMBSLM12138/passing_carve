@@ -1,0 +1,25 @@
+{
+    "cmake.cmakePath": "cube-cmake",
+    "cmake.configureArgs": [
+        "-DCMAKE_COMMAND=cube-cmake"
+    ],
+    "cmake.preferredGenerators": [
+        "Ninja"
+    ],
+    "stm32cube-ide-clangd.path": "cube",
+    "stm32cube-ide-clangd.arguments": [
+        "starm-clangd",
+        "--query-driver=${env:CUBE_BUNDLE_PATH}/gnu-tools-for-stm32/14.3.1+st.2/bin/arm-none-eabi-gcc*",
+        "--query-driver=${env:CUBE_BUNDLE_PATH}/gnu-tools-for-stm32/14.3.1+st.2/bin/arm-none-eabi-g++*"
+    ],
+    "emberprobe.openocdPath": "c:\\Users\\q2539\\AppData\\Roaming\\Code\\User\\globalStorage\\bakesheep.emberprobe\\emberprobe\\openocd\\bin\\openocd.exe",
+    "memory-view.trackDebuggers": [
+        "ozone",
+        "orbit"
+    ],
+    "mcu-debug.rtos-views.trackDebuggers": [
+        "ozone",
+        "orbit"
+    ],
+    "orbit.defaultProgram": "d:\\STM32CUBEcode\\passing_cave_vscode_cmake\\build\\Debug\\passing_cave_vscode_cmake.elf"
+}

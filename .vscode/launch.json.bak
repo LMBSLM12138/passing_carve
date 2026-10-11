@@ -1,0 +1,28 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceFolder}/build/Debug/passing_cave_vscode_cmake.elf",
+            "name": "Debug with OpenOCD",
+            "request": "launch",
+            "type": "emberprobe",
+            "servertype": "openocd",
+            "configFiles": [
+                "interface/cmsis-dap.cfg",
+                "target/stm32h7x.cfg"
+            ],
+            "serverpath": "D:/Browser_download/openocd-20260302/OpenOCD-20260302-0.12.0/bin/openocd.exe",
+            "searchDir": [
+                "D:/Browser_download/openocd-20260302/OpenOCD-20260302-0.12.0/openocd/scripts"
+            ],
+            "runToEntryPoint": "main",
+            "liveWatch": { "enabled": false },
+            "showDevDebugOutput": "none",
+            "gdbPath":"C:/Users/q2539/AppData/Local/stm32cube/bundles/gnu-tools-for-stm32/13.3.1+st.9/bin/arm-none-eabi-gdb.exe"
+        },
+    ]
+}
