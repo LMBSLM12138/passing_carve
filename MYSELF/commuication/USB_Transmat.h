@@ -59,6 +59,8 @@ uint8_t USB_Transmit_Data(uint8_t *Data, uint16_t Length);
 
 void USB_ReceiveCallback(uint16_t Size);
 
+void My_USB_Rx_Handler(uint8_t *Buffer, uint16_t Length);
+
 #endif
 
 /************************ COPYRIGHT(C) USTC-ROBOWALKER **************************/

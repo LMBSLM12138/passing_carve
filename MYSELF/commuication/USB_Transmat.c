@@ -16,6 +16,12 @@ Struct_USB_Manage_Object USB0_Manage_Object = {0};
 // USB设备句柄, 由 usbd_cdc_if.c 中定义
 extern USBD_HandleTypeDef hUsbDeviceHS;
 extern uint8_t UserRxBufferHS[APP_RX_DATA_SIZE];
+bool init_finished = false;
+
+// 全局临时帧
+uint8_t g_usb_rx_tmp[512];
+uint16_t g_usb_rx_len = 0;
+volatile uint8_t g_usb_rx_flag = 0;
 
 /* Function prototypes -------------------------------------------------------*/
 
@@ -77,5 +83,18 @@ void USB_ReceiveCallback(uint16_t Size)
         USB0_Manage_Object.Callback_Function(USB0_Manage_Object.Rx_Buffer_Ready, Size);
     }
 }
+//回调函数，将数据转移
+void My_USB_Rx_Handler(uint8_t *Buffer, uint16_t Length)
+{
+    if (Length > sizeof(g_usb_rx_tmp)) Length = sizeof(g_usb_rx_tmp);
+    memcpy(g_usb_rx_tmp, Buffer, Length);  // 快速拷贝（中断里，尽量快）
+    g_usb_rx_len  = Length;
+    g_usb_rx_flag = 1;                     // 置标志，提醒主循环
+}
+
+// if (g_usb_rx_flag) {
+//     g_usb_rx_flag = 0;
+//     Process_My_Frame(g_usb_rx_tmp, g_usb_rx_len); // 耗时解析放到这里
+// }
 
 /************************ COPYRIGHT(C) USTC-ROBOWALKER **************************/

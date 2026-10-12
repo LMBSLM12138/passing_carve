@@ -40,6 +40,7 @@
 #include "h7_buzzer.h"
 #include "see_you_again_tune.h"
 #include "usbd_cdc_if.h"
+#include "USB_Transmat.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -121,7 +122,10 @@ int main(void)
 	// BMI088_Init();
   // BMI088_CalibrateGyroBias(2000, 1);
 	// uint32_t last_can_tick = 0U;
-
+  // main 初始化阶段：
+  USB_Init(My_USB_Rx_Handler);
+  // …… 当你的机器人业务就绪后：
+  init_finished = true;
 
 
   /* USER CODE END 2 */
