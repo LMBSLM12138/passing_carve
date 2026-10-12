@@ -1,5 +1,5 @@
 {
-    // 使用 IntelliSense 了解相关属性。 
+    // 使用 IntelliSense 了解相关属性。 //"serverpath": "D:/Browser_download/openocd-20260302/OpenOCD-20260302-0.12.0/bin/openocd.exe",
     // 悬停以查看现有属性的描述。
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
@@ -11,7 +11,7 @@
             "request": "launch",
             "type": "emberprobe",
             "servertype": "openocd",
-            "serverpath": "D:/Browser_download/openocd-20260302/OpenOCD-20260302-0.12.0/bin/openocd.exe",
+            "serverpath": "",
             "runToEntryPoint": "",
             "gdbPath": "C:/Users/q2539/AppData/Local/stm32cube/bundles/gnu-tools-for-stm32/13.3.1+st.9/bin/arm-none-eabi-gdb.exe"
         }
