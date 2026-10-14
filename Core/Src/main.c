@@ -134,10 +134,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    CDC_Transmit_HS((uint8_t*)"Hello\n", 6);
-    HAL_Delay(1000);
-  // laoda_music_Control(rc_ctrl.SD);
-	// H7_Buzzer_Update(&g_buzzer);
+    // CDC_Transmit_HS((uint8_t*)"Hello\n", 6);
+    // HAL_Delay(1000);
+    // laoda_music_Control(rc_ctrl.SD);
+    // H7_Buzzer_Update(&g_buzzer);
 
 
 

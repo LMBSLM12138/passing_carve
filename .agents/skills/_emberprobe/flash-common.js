@@ -15,6 +15,7 @@ const { call, diagnosticForError } = require("./agent-client");
 const { MIN_OPENOCD_VERSION, parseVersion: parseOpenOcdVersion, checkCompatibility } = require("./openocd-policy");
 const { normalizeProbeSerial, normalizeAdapterSpeed } = require("./probe-connection");
 const { prepareProbeConnection } = require("./probe-preflight");
+const { listProbes } = require("./probe-inventory");
 
 const TARGET_RULES = [
     ["apm32f0", "geehy/apm32f0x.cfg"],
@@ -81,6 +82,11 @@ async function getEmberProbeConfig(workspace) {
     }
 }
 
+// The Bridge resolves automatic selections against the current workspace binding.
+function probeSerialOverride(result) {
+    return ["explicit", "config"].includes(result.sources?.probeSerial) ? result.probeSerial : undefined;
+}
+
 async function authorizeFlash(result, confirmationId) {
     return call(result.workspace, "flash.authorize", {
         elf: result.elf,
@@ -89,7 +95,7 @@ async function authorizeFlash(result, confirmationId) {
         probe: result.probe,
         openocd: result.openocd,
         transport: result.transport,
-        probeSerial: result.probeSerial,
+        probeSerial: probeSerialOverride(result),
         adapterSpeedKhz: result.adapterSpeedKhz,
         confirmationId
     });
@@ -440,14 +446,29 @@ async function preflight(options) {
     if (target && probe) {
         try {
             resolveOpenOcdLaunch(openocd, probe, target, transport);
-            const connection = await prepareProbeConnection({
-                openocd,
-                probe,
-                target,
-                transport,
-                probeSerial,
-                adapterSpeedKhz
-            });
+            const connection = await prepareProbeConnection(
+                {
+                    openocd,
+                    probe,
+                    target,
+                    transport,
+                    probeSerial,
+                    adapterSpeedKhz,
+                    successfulConnection: config?.successfulConnection
+                },
+                {
+                    listProbes: async (inventoryOptions) => {
+                        if (config) {
+                            try {
+                                return await call(root, "probe.list", {});
+                            } catch {
+                                /* Use OS metadata without Bridge. */
+                            }
+                        }
+                        return listProbes(inventoryOptions);
+                    }
+                }
+            );
             if (!probeSerial && connection.probeSerial) sources.probeSerial = "inventory";
             probeSerial = connection.probeSerial;
             transport = connection.transport;
@@ -488,6 +509,7 @@ function emit(value) {
 module.exports = {
     parseArgs,
     getEmberProbeConfig,
+    probeSerialOverride,
     authorizeFlash,
     findNewestElf,
     inferTarget,
