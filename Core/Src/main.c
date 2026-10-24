@@ -122,6 +122,8 @@ int main(void)
 	// BMI088_Init();
   // BMI088_CalibrateGyroBias(2000, 1);
 	// uint32_t last_can_tick = 0U;
+  SYS_Timestamp_Init(&htim5);
+  HAL_TIM_Base_Start_IT(&htim5);
   // main 初始化阶段：
   USB_Init(My_USB_Rx_Handler);
   // …… 当你的机器人业务就绪后：

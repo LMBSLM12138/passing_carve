@@ -1,10 +1,3 @@
-/**
- * @file drv_usb.c
- * @brief 仿照SCUT-Robotlab改写的USB通信初始化与配置流程 (C语言版)
- * @note  static int8_t CDC_Receive_HS(uint8_t* Buf, uint32_t *Len)
- *        为实际接收回调函数, 在该文件中
- */
-
 /* Includes ------------------------------------------------------------------*/
 
 #include "USB_Transmat.h"
